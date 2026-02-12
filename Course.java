@@ -28,4 +28,18 @@ public class Course{
         this.courseName = "Unknown Course";
         this.courseGrades = new ArrayList<Integer>();
     }
+    public String getCourseName(){
+        return courseName;
+    }
+
+    public void setCourseName(String courseName){
+        this.courseName = courseName;
+    }
+    public ArrayList<Integer> getCourseGrades(){
+        return courseGrades;
+}
+
+    public void setCourseGrades(ArrayList<Integer> courseGrades){
+        this.courseGrades = courseGrades;
+    }
 }
