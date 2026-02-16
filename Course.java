@@ -5,41 +5,69 @@ Program: Course Grades Analyzer - reads CSV grade totals and analyzes (A) percen
 */
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Course{
-    private String courseName;
-    private ArrayList<Integer> courseGrades;
+   private String courseName;
+   private ArrayList<Integer> courseGrades;
 
-    public static final int INDEX_A = 0;
-    public static final int INDEX_B = 1;
-    public static final int INDEX_C = 2;
-    public static final int INDEX_D = 3;
-    public static final int INDEX_F = 4;
+//parameterized constructor
+   public Course(String courseName, ArrayList<Integer> courseGrades){
+      this.courseName = courseName;
+      this.courseGrades = new ArrayList<>(courseGrades);
+   }
+   //default contsructor 
+   public Course(){
+      this.courseName = "Unknown Course";
+      this.courseGrades = new ArrayList<Integer>();
+   }
+   //getters and setters for course name and grades
+   public String getCourseName(){
+      return courseName;
+   }
 
-    // courseGrades stores totals in this exact order:
-    // index 0 = A, 1 = B, 2 = C, 3 = D, 4 = F
-    public Course(String courseName, ArrayList<Integer> courseGrades){
-        this.courseName = courseName;
-        this.courseGrades = courseGrades;
-    }
-    //default contsructor 
-    public Course(){
-        this.courseName = "Unknown Course";
-        this.courseGrades = new ArrayList<Integer>();
-    }
-    public String getCourseName(){
-        return courseName;
-    }
+   public void setCourseName(String courseName){
+      this.courseName = courseName;
+   }
+   public ArrayList<Integer> getCourseGrades(){
+      return courseGrades;
+   }
 
-    public void setCourseName(String courseName){
-        this.courseName = courseName;
-    }
-    public ArrayList<Integer> getCourseGrades(){
-        return courseGrades;
-}
-
-    public void setCourseGrades(ArrayList<Integer> courseGrades){
-        this.courseGrades = courseGrades;
-    }
+   public void setCourseGrades(ArrayList<Integer> courseGrades){
+      this.courseGrades = new ArrayList<>(courseGrades);
+   }
+//returning total number of grades 
+   public int getTotalGrades(){
+      int total = 0;
+      for(int grade : courseGrades){
+         total += grade;
+      }
+      return total;
+   }
+   //getting the percentage of A grades (90 and above)
+   public double getAPercentage(){
+      int total = getTotalGrades();
+      if(total == 0){
+         return 0.0;
+      }
+      //Index 0 will always be 'A' grades
+      return(double) courseGrades.get(0) / total * 100;
+   }
+   //toString to display percentag of A grades for the course
+   @Override
+   public String toString(){
+      //insuring we wont crash if courseGrades is not populated correctly by checking size before accessing
+      while(courseGrades.size() < 5){
+         courseGrades.add(0); // adding 0 for missing grade categories
+      }
+      return String.format("%-10s %5d %5d %5d %5d %5d %7d %7.2f%%", 
+         courseName, 
+         courseGrades.get(0), 
+         courseGrades.get(1),
+         courseGrades.get(2), 
+         courseGrades.get(3), 
+         courseGrades.get(4), 
+         getTotalGrades(), 
+         getAPercentage());
+      
+   }
 }
